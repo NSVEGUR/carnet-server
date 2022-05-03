@@ -15,8 +15,8 @@ router.post("/login", login);
 
 router.post("/mybookings", mybookings);
 
-router.post("/resetpassword", resetPassword);
+router.patch("/resetpassword", resetPassword);
 
-router.post("/resetmail", resetMail);
+router.patch("/resetmail", resetMail);
 
 export default router;
