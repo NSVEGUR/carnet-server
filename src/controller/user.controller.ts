@@ -32,10 +32,12 @@ const signup = catchAsync(async function (
     `INSERT INTO user (mail, password) VALUES ("${mail}", "${password}")`,
     function (error, results, fields) {
       if (error) {
+        console.log(error);
         return next(new AppError("Error in Signing Up", 400));
       }
       return res.status(200).json({
-        message: "success",
+        status: "success",
+        message: "Signed Up Successfully",
         results: {
           mail,
           password,
@@ -58,8 +60,16 @@ const login = catchAsync(async function (
       if (error) {
         return next(new AppError("Wrong Password or Mail", 400));
       }
+      if (results.length === 0) {
+        return res.status(404).json({
+          status: "failure",
+          message: "Wrong Password or Mail",
+          results,
+        });
+      }
       return res.status(200).json({
-        message: "success",
+        status: "success",
+        message: "Logged In Successfully",
         results,
       });
     }
@@ -76,10 +86,11 @@ const mybookings = catchAsync(async function (
     `SELECT * FROM bookings where bookings.userid="${userid}"`,
     function (error, results, fields) {
       if (error) {
+        console.log(error);
         return next(new AppError("Error in Fetching Bookings", 400));
       }
       return res.status(200).json({
-        message: "success",
+        status: "success",
         results,
       });
     }
@@ -100,7 +111,7 @@ const resetPassword = catchAsync(async function (
         return next(new AppError("Error in Changing Password", 400));
       }
       return res.status(200).json({
-        message: "success",
+        status: "success",
         results: {
           password,
         },
@@ -123,7 +134,7 @@ const resetMail = catchAsync(async function (
         return next(new AppError("Error in Fetching Bookings", 400));
       }
       return res.status(200).json({
-        message: "success",
+        status: "success",
         results: {
           mail,
         },

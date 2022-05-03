@@ -37,7 +37,7 @@ const bookTicket = catchAsync(async function (
         return next(new AppError("Error in Signing Up", 400));
       }
       return res.status(200).json({
-        message: "success",
+        status: "success",
         results: req.body,
       });
     }
@@ -50,6 +50,7 @@ const searchTrains = catchAsync(async function (
   next: NextFunction
 ) {
   const { from, to } = req.body;
+  console.log(from, to);
   database.pool.query(
     `SELECT * FROM route where from_place="${from}" and to_place="${to}"`,
     function (error, results, fields) {
@@ -57,7 +58,7 @@ const searchTrains = catchAsync(async function (
         return next(new AppError("Error in Signing Up", 400));
       }
       return res.status(200).json({
-        message: "success",
+        status: "success",
         results,
       });
     }

@@ -10,13 +10,7 @@ class Database {
       user: config.DB_USER,
       password: config.DB_PASSWORD,
       connectionLimit: 10,
-    });
-    this.useCarnet();
-  }
-  useCarnet() {
-    this.pool.query("use Carnet", function (error, results, fields) {
-      if (error) throw error;
-      console.log("Connected to Cloud and using Carnet database");
+      database: "Carnet",
     });
   }
 
